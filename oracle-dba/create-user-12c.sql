@@ -5,7 +5,7 @@
 --     keywords: 'Oracle create user, local user, common user, oracle 12c, example code, tutorials'
 -- author: Venkata Bhattaram / tinitiate.com
 -- code-alias: create-user
--- slug: oracle/oracle-dba/create-user-12c
+-- slug: oracle/admin/create-user
 -- ---
 
 -- # Users in Oracle
@@ -18,18 +18,28 @@
 
 -- Step 1.
 -- Get the name of the current PDB
-SELECT    name, pdb
-FROM      v$services
-ORDER BY  name;
+select    name, PDB
+from      V$SERVICES
+order by  name;
 
 -- Open the database
 alter database open;
 
 -- Set the current PDB, on this installation there is only pdborcl
-ALTER SESSION SET CONTAINER = pdborcl;
+alter session set container = pdborcl;
 
 -- Create a Local user
 create user tinitiate identified by tinitiate;
 grant connect, resource to tinitiate;
+
+
+-- Assign the user a tablespace
+
+-- Check the available tablespaces
+select *
+from   dba_tablespaces;
+
+alter user tinitiate quota unlimited on ti_user_data;
+alter user tinitiate quota unlimited on ti_user_indx;
 -- ```
 
