@@ -39,7 +39,11 @@ grant connect, resource to tinitiate;
 select *
 from   dba_tablespaces;
 
+-- Assign tablespaces to the user
 alter user tinitiate quota unlimited on ti_user_data;
 alter user tinitiate quota unlimited on ti_user_indx;
+
+-- Assign a default tablespace to the user
+alter user tinitiate default tablespace ti_user_data;
 -- ```
 
