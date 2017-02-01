@@ -5,7 +5,7 @@
 --     keywords: 'Oracle create user, local user, common user, oracle 12c, example code, tutorials'
 -- author: Venkata Bhattaram / tinitiate.com
 -- code-alias: create-user
--- slug: oracle/admin/create-user
+-- slug: oracle/oracle-dba/create-user
 -- ---
 
 -- # Users in Oracle
