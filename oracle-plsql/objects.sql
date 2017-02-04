@@ -263,3 +263,152 @@ end;
 -- Drop the objects
 drop type ti_calc;
 -- >```
+
+
+-- >## Object comparision
+-- >* Unlike variables objects dont have predefined data type such as CHAR or INT,
+-- >  This makes the which makes it difficult to compare objects.
+-- >* But an object type, have multiple attributes of various data types and there
+-- >  is no predefined axis of comparison. 
+-- > * The programmer has an option to define an map method or an order method 
+-- >   for comparing objects, with these methods we can write our own 
+-- >   comparision methods.
+
+-- >### Object comparision with MAP method
+-- >* Map methods return values that can be used for comparing and sorting.
+-- >* The MUST not return LOBs, BFILE and binary data
+
+create or replace type ti_square as object 
+( 
+  -- Member attribute length of square side
+  side_length number,
+
+  -- Member function to get the square area
+  -- Using the KEYWORD map to create the VALUE of the OBJECT for comparision
+  map member function getArea return number
+);
+/
+
+create or replace type body ti_square 
+as 
+
+  -- Using the KEYWORD map to create the VALUE of the OBJECT for comparision
+  map member function getArea return number
+  as
+  begin
+     return side_length * side_length;
+  end getArea;
+end;
+/
+
+
+declare
+
+  -- Create TWO variables for comparision
+  sq_1 ti_square := ti_square(5);
+  sq_2 ti_square := ti_square(6);
+  sq_3 ti_square := ti_square(5);
+  
+begin
+  
+  -- Objects Comparision with the MAP method
+  -- NOTE there are no Object attributes used here.
+  if(sq_1 = sq_2)
+  then
+    dbms_output.put_line('SQ_1 and SQ_2 are EQUAL');
+  else
+    dbms_output.put_line('SQ_1 and SQ_2 are NOT EQUAL');
+  end if;
+  
+  if(sq_2 = sq_3)
+  then
+    dbms_output.put_line('SQ_2 and SQ_3 are EQUAL');
+  else
+    dbms_output.put_line('SQ_2 and SQ_3 are NOT EQUAL');
+  end if;
+  
+  -- Here "SQ_3 and SQ_1 are EQUAL" is printed as the area values are same
+  -- and that is what the MAP member uses when objects are compared.
+  if(sq_3 = sq_1)
+  then
+    dbms_output.put_line('SQ_3 and SQ_1 are EQUAL');
+  else
+    dbms_output.put_line('SQ_3 and SQ_1 are NOT EQUAL');
+  end if;  
+
+end;
+/
+
+-- drop the object
+drop type ti_square;
+-- >```
+
+
+-- >### Object comparision with ORDER method
+-- >* ORDER methods return values that can be used for comparing and sorting.
+-- >* The MUST not return LOBs, BFILE and binary data
+-- >* Order methods make direct one-to-one object comparisons. Unlike map methods,
+-- >  they cannot determine the order of a number of objects. 
+
+-- ```sql
+create or replace type ti_square as object 
+( 
+  -- Member attribute length of square side
+  side_length number,
+
+  -- Member function to get the square area
+  -- Using the KEYWORD order to create the VALUE of the OBJECT for comparision
+  order member function compareArea(p_obj in ti_square) return number
+);
+/
+
+create or replace type body ti_square 
+as 
+
+  -- Using the KEYWORD order to create the VALUE of the OBJECT for comparision
+  order member function compareArea(p_obj in ti_square) return number
+  as
+  begin
+     if (p_obj.side_length * p_obj.side_length = side_length * side_length)
+     then
+         return 0;
+     elsif (p_obj.side_length * p_obj.side_length > side_length * side_length)
+     then
+         return 1;
+     elsif (p_obj.side_length * p_obj.side_length < side_length * side_length) 
+     then
+         return -1;
+     end if;
+     
+  end compareArea;
+end;
+/
+
+declare
+
+  -- Create TWO variables for comparision
+  sq_1 ti_square := ti_square(5);
+  sq_2 ti_square := ti_square(6);
+  
+begin
+  
+  -- Objects Comparision with the MAP method
+  -- NOTE there are no Object attributes used here.
+  if(sq_1.compareArea(sq_2) = 0)
+  then
+      dbms_output.put_line('sq_1 = sq_2');
+  -- This value is printed.
+  elsif(sq_1.compareArea(sq_2) = 1)
+  then
+      dbms_output.put_line('sq_1 < sq_2');
+  elsif(sq_1.compareArea(sq_2) = -1)
+  then
+      dbms_output.put_line('sq_1 > sq_2');
+  end if;
+  
+end;
+/
+
+-- drop the object
+drop type ti_square;
+-- >```
