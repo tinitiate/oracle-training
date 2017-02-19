@@ -304,3 +304,5 @@ from   ti_mv_bi_rf;
 -- drop the M View
 drop materialized view ti_mv_bi_rf;
 -- >```
+
+
