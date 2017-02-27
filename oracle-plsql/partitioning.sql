@@ -1,8 +1,8 @@
 -- >---
 -- >title: Oracle Table Partitioning
 -- >metadata:
--- >    description: 'Oracle Table Partitioning, Range partition, List Partittion'
--- >    keywords: 'Oracle Table Partitioning, Range partition, List Partittion'
+-- >    description: 'Oracle Table Partitioning, Range partition, List Partition'
+-- >    keywords: 'Oracle Table Partitioning, Range partition, List Partition, code, examples'
 -- >author: Venkata Bhattaram / tinitiate.com
 -- >code-alias: Oracle Table Partitioning
 -- >slug: oracle/plsql/partitioning
@@ -14,7 +14,10 @@
 -- >  on both CPU and Memory.
 -- >* Any query issued could lead to performance issues because of the large data.
 -- >* Oracle Database's partitioning is about divide and conquer, a table or index 
--- >  is partitioned into multiple segments placed into different tablespaces. 
+-- >  is partitioned into multiple segments placed into different tablespaces.
+-- >* During a SELECT statement if data is not selected from a partitioned table, 
+-- >  then, partition pruning would occur where the partition is ignored thus 
+-- >  improving performance of the select statement.
 -- >* These individual partitions are still addressed as a single table,
 -- >  while the individual partitions are stored as separate segments this allows 
 -- >  for easier manipulation and handling of data.
