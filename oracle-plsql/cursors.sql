@@ -1,29 +1,28 @@
--- ---
--- title: Oracle plsql cursors
--- metadata:
---     description: 'Oracle cursors '
---     keywords: 'Oracle cursors, example code, tutorials'
--- author: Venkata Bhattaram / tinitiate.com
--- code-alias: cursors
--- slug: oracle/plsql/cursors
--- ---
+-- >---
+-- >title: Oracle plsql cursors
+-- >metadata:
+-- >    description: 'Oracle cursors '
+-- >    keywords: 'Oracle cursors, example code, tutorials'
+-- >author: Venkata Bhattaram / tinitiate.com
+-- >code-alias: cursors
+-- >slug: oracle/plsql/cursors
+-- >---
 
--- # Oracle PLSQL cursors
--- * Cursor is a temporary work area in the system memory for an executing SQL 
---   statement. It contains data, the data types of the data, rows count of data.
--- * There are TWO types of cursors IMPLICIT and EXPLICIT
--- * **IMPLICIT CURSORS**
---   implicit cursors are automatically created by oracle whenever an sql 
---   statement is executed.
--- * **EXPLICIT CURSORS**
---   explicit cursors are programmer created for the execution of an sql 
---   statement. All actions such as creating the cursor, fetching data from the 
---   cursor and closing the cursor are handled by the code and not automatically.
+-- ># Oracle PLSQL cursors
+-- >* Cursor is a temporary work area in the system memory for an executing SQL 
+-- >  statement. It contains data, the data types of the data, rows count of data.
+-- >* There are TWO types of cursors IMPLICIT and EXPLICIT
+-- >* **IMPLICIT CURSORS**
+-- >  * implicit cursors are automatically created by oracle whenever an sql 
+-- >    statement is executed.
+-- >* **EXPLICIT CURSORS**
+-- >  * explicit cursors are programmer created for the execution of an sql 
+-- >    statement. All actions such as creating the cursor, fetching data from the 
+-- >    cursor and closing the cursor are handled by the code and not automatically.
 
 
--- ## Create a table with some data for using to demonstrate IMPLICIT and 
--- EXPLICIT cursors.
--- ```sql
+-- >## Create a table and data for IMPLICIT / EXPLICIT cursors demonstration
+-- >```
 -- Create same table and data
 set serverout on;
 -- Drop the test data table, if exists
@@ -55,15 +54,16 @@ commit;
 
 -- check if the data is created
 select * from tinitiate_tab;
--- ```
+-- >```
 
 
--- ## Implicit Cursor
--- * Implicit cursors are automatically created by oracle whenever an sql 
---   statement is executed.
--- * Create an implicit cursor to read data from the table into PLSQL
--- * Working with individual row-column data of various data types.
--- ```sql
+-- >## Implicit Cursor
+-- >* Implicit cursors are automatically created by oracle whenever an sql 
+-- >  statement is executed.
+-- >* Create an implicit cursor to read data from the table into PLSQL
+-- >* Working with individual row-column data of various data types.
+
+-- >```
 set serverout on
 declare
     -- Create a cursor using the keyword cursor
@@ -104,27 +104,28 @@ begin
 
     end loop;
 end;
--- ```
+-- >```
 
--- ## Explicit Cursor
--- * explicit cursors are programmer created for the execution of an sql 
---   statement. All actions such as creating the cursor, fetching data from the 
---   cursor and closing the cursor are handled by the code and not automatically.
--- * Create an explicit cursor to fetch data to read and use it, 
---   from the table into PLSQL code.
--- * Working with individual row-column data of various data types.
--- * Explicit cursors have cursor attributes which can be used to analyze the 
---   cursor programatically
--- * %ISOPEN Returns TRUE if the cursor is open and FALSE if closed.
--- * %FOUND	 must be used after the cursor is opened and fetch executed, 
---   returns TRUE if cursor has any row data and returns FALSE if no rows 
---   are returned.
--- * %NOTFOUND must be used after the cursor is opened and fetch executed,
---   returns FALSE if cursor has any row data and returns TRUE if no rows 
---   are returned.
--- * %ROWCOUNT must be used after the cursor is opened and fetch executed, 
---   Returns the row count of the number of rows fetched.
--- ```sql
+-- >## Explicit Cursor
+-- >* explicit cursors are programmer created for the execution of an sql 
+-- >  statement. All actions such as creating the cursor, fetching data from the 
+-- >  cursor and closing the cursor are handled by the code and not automatically.
+-- >* Create an explicit cursor to fetch data to read and use it, 
+-- >  from the table into PLSQL code.
+-- >* Working with individual row-column data of various data types.
+-- >* Explicit cursors have cursor attributes which can be used to analyze the 
+-- >  cursor programatically
+-- >* %ISOPEN Returns TRUE if the cursor is open and FALSE if closed.
+-- >* %FOUND	 must be used after the cursor is opened and fetch executed, 
+-- >  returns TRUE if cursor has any row data and returns FALSE if no rows 
+-- >  are returned.
+-- >* %NOTFOUND must be used after the cursor is opened and fetch executed,
+-- >  returns FALSE if cursor has any row data and returns TRUE if no rows 
+-- >  are returned.
+-- >* %ROWCOUNT must be used after the cursor is opened and fetch executed, 
+-- >  Returns the row count of the number of rows fetched.
+
+-- >```
 declare
     -- Create a cursor using the keyword cursor
     cursor cur_tidata is
@@ -171,4 +172,7 @@ begin
     close cur_tidata;
 end;
 
--- ```
+-- >```
+
+
+

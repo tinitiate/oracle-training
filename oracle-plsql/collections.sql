@@ -227,7 +227,7 @@ end;
 -- >```
 
 
--- >## Collection Methods Supported by Index-by tables or Associative arrays
+-- >## Collection Methods Supported by Nested Tables
 -- >* Collection Methods
 -- >  ** EXISTS
 -- >  ** COUNT
@@ -235,6 +235,8 @@ end;
 -- >  ** FIRST and LAST
 -- >  ** PRIOR and NEXT
 -- >  ** DELETE
+-- >  ** EXTEND
+-- >  ** TRIM
 -- >```sql
 
 declare
@@ -255,9 +257,20 @@ begin
    
    -- EXTEND
    -- EXTEND adds an empty key in the end, which can be referenced by var.LAST
+   -- EXTEND appends one null element to a collection.
+   -- EXTEND(n) appends n null elements to a collection.
+   -- EXTEND(n,i) appends n copies of the ith element to a collection.   
    l_number_data.extend;
    -- Here we add 600 to as the element value of the last KEY
    l_number_data(l_number_data.last) := 600;
+   
+   l_number_data.extend(700);
+   
+   for i in l_number_data.first .. l_number_data.last
+   loop
+     dbms_output.put_line(l_number_data(i));
+   end loop;
+   
    
    -- EXISTS
    -- EXISTS(n) returns TRUE if nth KEY in a collection exists; else returns FALSE.
@@ -372,6 +385,7 @@ end;
 -- >* **VARRAY** is exactly similar to NESTED TABLEs, except that an upper bound 
 -->   or max key size must be specified.
 -- >* Also Elements cannot be deleted.
+-- >* All builtin methods of Nested Table works with VARRAY
 -- >```sql
 -- Example for types
 declare

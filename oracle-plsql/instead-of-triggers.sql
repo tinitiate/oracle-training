@@ -116,3 +116,5 @@ drop view vw_trigger_test;
 drop table trigger_test;
 
 -- >```
+
+

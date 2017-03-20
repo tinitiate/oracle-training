@@ -1,8 +1,8 @@
 -- >---
 -- >title: Oracle plsql Table Triggers
 -- >metadata:
--- >    description: 'Oracle Triggers'
--- >    keywords: 'Oracle triggers, stored procedures example code, tutorials'
+-- >    description: 'Oracle Triggers, Before Trigger, After Trigger, Statement level triggers, row level triggers'
+-- >    keywords: 'Oracle Triggers, Before Trigger, After Trigger, Statement level triggers, row level triggers example code, tutorials'
 -- >author: Venkata Bhattaram / tinitiate.com
 -- >code-alias: triggers
 -- >slug: oracle/plsql/triggers
@@ -241,3 +241,5 @@ from   trigger_test;
 drop table trigger_test;
 
 -- >```
+
+
