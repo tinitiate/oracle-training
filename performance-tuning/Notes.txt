@@ -1,0 +1,7 @@
+Performance Tuning
+
+Explain Plan
+------------
+1. Oprimizer Mode:
+    CHOOSE
+    RULE

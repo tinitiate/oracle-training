@@ -1,0 +1,187 @@
+-- Large Table No Index
+create table large_table_no_index 
+(
+     ti_id    int
+    ,ti_data1 varchar2(100)
+    ,ti_data2 varchar2(100)
+    ,ti_date1 date
+    ,ti_date2 date
+);
+
+insert into large_table_no_index
+  (ti_id
+  ,ti_data1
+  ,ti_data2
+  ,ti_date1
+  ,ti_date2)
+select  round(dbms_random.value(low => 1000, high => 2000))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+from   dual
+connect by level < 100001;
+
+
+
+-- Large Table With Index
+create table large_table_with_index 
+(
+     ti_id    int
+    ,ti_data1 varchar2(100)
+    ,ti_data2 varchar2(100)
+    ,ti_date1 date
+    ,constraint large_table_with_index_pk primary key(ti_id)
+);
+
+create index large_table_with_index_idx1 on large_table_with_index(ti_data1);
+create index large_table_with_index_idx2 on large_table_with_index(ti_date1);
+
+insert into large_table_no_index
+  (ti_id
+  ,ti_data1
+  ,ti_data2
+  ,ti_date1
+  ,ti_date2)
+select  level
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+from   dual
+connect by level < 100001;
+
+
+
+-- Medium Table No Index
+create table medium_table_no_index 
+(
+     ti_id    int
+    ,ti_data1 varchar2(100)
+    ,ti_data2 varchar2(100)
+    ,ti_date1 date
+);
+
+insert into medium_table_no_index
+  (ti_id
+  ,ti_data1
+  ,ti_data2
+  ,ti_date1)
+select  round(dbms_random.value(low => 1000, high => 2000))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+from   dual
+connect by level < 10001;
+
+
+-- Medium Table With Index
+create table medium_table_with_index 
+(
+     ti_id    int
+    ,ti_data1 varchar2(100)
+    ,ti_data2 varchar2(100)
+    ,ti_date1 date
+    ,constraint medium_table_with_index_pk primary key(ti_id)
+);
+
+create index medium_table_with_index_idx1 on medium_table_with_index(ti_data1);
+create index medium_table_with_index_idx2 on medium_table_with_index(ti_data2);
+create index medium_table_with_index_idx3 on medium_table_with_index(ti_date1);
+
+insert into medium_table_with_index
+  (ti_id
+  ,ti_data1
+  ,ti_data2
+  ,ti_date1)
+select  level
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+from   dual
+connect by level < 10001;
+
+
+
+-- Small Table No Index
+create table small_table_no_index 
+(
+     ti_id    int
+    ,ti_data1 varchar2(100)
+    ,ti_data2 varchar2(100)
+    ,ti_date1 date
+);
+
+insert into small_table_no_index
+  (ti_id
+  ,ti_data1
+  ,ti_data2
+  ,ti_date1)
+select  level
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+from   dual
+connect by level < 1001;
+
+
+-- Small Table With Index
+create table small_table_with_index 
+(
+     ti_id    int
+    ,ti_data1 varchar2(100)
+    ,ti_data2 varchar2(100)
+    ,ti_date1 date
+    ,constraint small_table_with_index_pk primary key(ti_id)
+);
+
+create index small_table_with_index_idx1 on small_table_with_index(ti_data1);
+create index small_table_with_index_idx2 on small_table_with_index(ti_data2);
+create index small_table_with_index_idx3 on small_table_with_index(ti_date1);
+
+insert into small_table_with_index
+  (ti_id
+  ,ti_data1
+  ,ti_data2
+  ,ti_date1)
+select  level
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,sysdate-round(dbms_random.value(low => 1000, high => 2000))
+from   dual
+connect by level < 1001;
+
+
+-- very large partitioned table
+create table very_large_part_table
+(
+     ti_id    int
+    ,ti_data1 varchar2(100)
+    ,ti_data2 varchar2(100)
+    ,ti_date1 date
+)
+partition by range (ti_date1)
+interval (numtoyminterval(1,'MONTH'))
+(
+   partition ip1 values less than (to_date('01-DEC-2014','DD-MON-YYYY'))
+);
+
+insert into very_large_part_table
+  (ti_id
+  ,ti_data1
+  ,ti_data2
+  ,ti_date1)
+select  level
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,to_char(round(dbms_random.value(low => 1000, high => 2000)))
+       ,sysdate-round(dbms_random.value(low => 100, high => 800))
+from   dual
+connect by level < 300001;
+
+select *
+ from  dba_tab_partitions
+ where table_name = 'VERY_LARGE_PART_TABLE'
+
+
+
+

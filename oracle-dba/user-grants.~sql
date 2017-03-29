@@ -50,14 +50,13 @@ grant create any directory to tinitiate;
 -- >## Grants to use Explain Plan
 -- >```sql
 grant execute on dbms_xplan to tinitiate;
-grant execute on dbms_stats to tinitiate;
 grant select on v_$session to tinitiate;
 grant select on v_$sql to tinitiate;
 grant select on v_$sql_plan to tinitiate;
 grant select on v_$sql_plan_statistics_all to tinitiate;
 grant select on v_$parameter to tinitiate;
 -- >```
-select user from dual;
+
 
 
 

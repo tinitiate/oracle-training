@@ -19,7 +19,6 @@
 -- >* Oracle Database considers the smaller table as a Diriving Table and for every 
 -- >  row in the driver table it searches for a matching value in the other table.
 -- >* Indexes are used where ever possible.
--- >* This is the most common type of Join.
 
 -- >* SORT MERGE JOIN
 -- >* Oracle database sorts the joining tables by the join column and merges the 

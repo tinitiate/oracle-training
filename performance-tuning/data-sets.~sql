@@ -89,7 +89,7 @@ interval (numtoyminterval(1,'MONTH'))
 );
 
 
--- >
+
 create table flight_log
   ( flight_number    number not null
    ,departure_city   varchar2(10)
