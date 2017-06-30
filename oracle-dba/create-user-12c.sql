@@ -43,6 +43,9 @@ from   dba_tablespaces;
 alter user tinitiate quota unlimited on ti_user_data;
 alter user tinitiate quota unlimited on ti_user_indx;
 
+-- Create a user and assign to the PDB
+CREATE PLUGGABLE DATABASE pdborcl ADMIN USER admin IDENTIFIED BY admin;
+
 -- Assign a default tablespace to the user
 alter user tinitiate default tablespace ti_user_data;
 -- ```
