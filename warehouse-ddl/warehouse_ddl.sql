@@ -61,3 +61,44 @@ create table billdetails
   constraint billid_fk foreign key (billid) references bills(billid),
   constraint prodid_fk foreign key (prodid) references products(prodid)
 );
+
+
+
+-- Create  100 Products
+declare
+    l_prod_id int;
+    l_prod_name varchar2(100);
+    l_prod_price number;
+    l_prod_cat varchar2(100);
+begin
+   for c1 in 1 .. 100
+   loop
+      l_prod_id := c1;
+      l_prod_price := round(DBMS_RANDOM.value(1,50),2);
+      l_prod_cat := trunc(DBMS_RANDOM.value(1,20));
+      l_prod_name := DBMS_RANDOM.string('P',10);
+      
+      dbms_output.put_line('prod_id: '||l_prod_id);
+      dbms_output.put_line('prod_cat: '||l_prod_cat);
+      dbms_output.put_line('price: '||l_prod_price);
+      dbms_output.put_line('prod_name: '||l_prod_name);
+      
+      /*
+      insert into products values (
+         l_prod_id     -- prodid
+        ,l_prod_name   -- pname
+        ,l_prod_cat    -- category
+        ,l_prod_price  -- price
+      );
+      */
+   end loop;
+end;
+
+-- Write 20 Updates 1 for each category
+update products
+set    prod_cat = 'Frozen'
+where  prod_cat = '1';
+
+                                            
+                                            
+                                            
