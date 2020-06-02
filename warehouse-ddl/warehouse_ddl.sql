@@ -1,3 +1,33 @@
+create table products 
+( 
+  prodid     int, 
+  pname      varchar2(200), 
+  category   varchar2(200), 
+  price      number, 
+  constraint products_pk primary key (prodid) 
+);
+
+create table bills 
+( 
+  billid     int, 
+  billdate   date, 
+  custname   varchar2(200), 
+  billtotal  number, 
+  constraint bills_pk primary key (billid) 
+);
+
+create table billdetails 
+( 
+  billid          int, 
+  billlineid      int, 
+  prodid          int,   -- 1  1000
+  quantity        number, -- 1 - 10
+  lineitemprice   number, 
+  constraint billdetails_pk primary key (billlineid), 
+  constraint billid_fk foreign key (billid) references bills(billid), 
+  constraint prodid_fk foreign key (prodid) references products(prodid) 
+);
+
 -- products table
 create table products
 (
@@ -62,8 +92,34 @@ create table billdetails
   constraint prodid_fk foreign key (prodid) references products(prodid)
 );
 
+--
+insert into billdetails values (
+   1 --billid
+  ,1 --billlineid
+  ,1 --prodid
+  ,2 --quantity
+  ,null --lineitemprice
+  );
 
+insert into billdetails values (
+   2 --billid
+  ,2 --billlineid
+  ,2 --prodid
+  ,2 --quantity
+  ,null --lineitemprice
+  );
 
+update   billdetails t
+set     lineitemprice = (select  (p.price * bd.quantity) lineitemprice
+                         from    products    p
+                                ,billdetails bd
+                         where  p.prodid = bd.prodid
+                         and    t.billlineid = bd.billlineid);
+
+select * from billdetails;
+
+-- Associative Law
+(a+b) + c = a + (b+c)
 -- Create  100 Products
 declare
     l_prod_id int;
@@ -99,6 +155,3 @@ update products
 set    prod_cat = 'Frozen'
 where  prod_cat = '1';
 
-                                            
-                                            
-                                            
